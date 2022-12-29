@@ -25,13 +25,14 @@ namespace ParkingApp.Data {
                 .Include(data => data.Vehicles)
                 .Where(data => data.Active == true)
                 .ToListAsync();
+     
         }
         
         public async Task<User> GetOneUser(int id){
             var response =  await _dbcontext.Users
                 .AsNoTracking()
                 .Include(data => data.Vehicles)
-                .FirstOrDefaultAsync(data => data.Id == id);
+                .FirstOrDefaultAsync(data => data.Id == id && data.Active != false);
             
             check.IsNull(response, "user");
             return response;
@@ -46,23 +47,30 @@ namespace ParkingApp.Data {
         
         public async Task<User> UpdateUser(User user){
             check.IsNull(user.Id, "id");
-            var UserToUpdate = await GetOneUser(user.Id);           
-            check.IsNull(UserToUpdate, "user");
-            check.UserEntry(user);          
-            
-            _dbcontext.Users.Update(user);
+            var UpdateUser = await _dbcontext.Users.Include(data => data.Vehicles).Where(data => data.Id == user.Id).FirstOrDefaultAsync();
+            check.IsNull(UpdateUser, "user");
+
+            UpdateUser.FirstName = user.FirstName;
+            UpdateUser.LastName = user.LastName;
+            UpdateUser.Email = user.Email;
+            UpdateUser.Password = user.Password;
+
+            UpdateUser.Vehicles.Clear();
+
+            foreach (var item in user.Vehicles) {
+                UpdateUser.Vehicles.Add(item);
+            }
+
             await _dbcontext.SaveChangesAsync();
-            return user;
+            return UpdateUser;
         }
         
         public async Task<bool> DeleteUser(int id){
             check.IsNull(id, "id");
-            var response = await _dbcontext.Users
-                .AsNoTracking()
-                .Include(data => data.Vehicles)
-                .FirstOrDefaultAsync(data => data.Id == id);
-
-            _dbcontext.Users.Update(response);
+            var DeleteUser = await _dbcontext.Users.Where(data => data.Id == id).FirstOrDefaultAsync();
+            
+            DeleteUser.Active = false;
+            
             await _dbcontext.SaveChangesAsync();
             return true;
         }
