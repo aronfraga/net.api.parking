@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ParkingApp.Data.Repositories;
 using ParkingApp.Data;
+using ParkingApp.Model;
 
 namespace ParkingApp.Controllers {
 
@@ -18,7 +19,32 @@ namespace ParkingApp.Controllers {
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers(){
-            return Ok(await _userRepository.GetAllUsers());
+            try {
+                var response = await _userRepository.GetAllUsers();
+                return StatusCode(200, new { request_status = "successful", response = response });
+            } catch(Exception ex) {
+                return StatusCode(500, new { request_status = "unsuccessful", response = ex.Message });
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOneUser(int id){
+            try {
+                var response = await _userRepository.GetOneUser(id);
+                return StatusCode(200, new { request_status = "successful", response = response });
+            } catch (Exception ex) {
+                return StatusCode(500, new { request_status = "unsuccessful", response = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertUser(User user){
+            try {
+                var response = await _userRepository.InsertUser(user);
+                return StatusCode(200, new { request_status = "successful", response = response });
+            } catch (Exception ex) {
+                return StatusCode(500, new { request_status = "unsuccessful", response = ex.Message });
+            }
         }
 
     }

@@ -10,10 +10,11 @@ namespace ParkingApp.Data.Repositories {
     public interface IUserRepository {
 
         Task<IEnumerable<User>> GetAllUsers();
-        //Task<User> GetOneUser();
-        //Task<bool> InsertUser();
-        //Task<bool> UpdateUser();
+        Task<User> GetOneUser(int id);
+        Task<User> InsertUser(User user);
+        //Task<User> UpdateUser();
         //Task<bool> DeleteUser();
-    
+
     }
+
 }

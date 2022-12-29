@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParkingApp.Data {
+namespace ParkingApp.Data {   
     public class UserRepository : IUserRepository {
 
         public readonly Context _dbcontext;
+        Checker check = new Checker();
 
         public UserRepository(Context dbcontext){
             _dbcontext = dbcontext;
@@ -20,19 +21,18 @@ namespace ParkingApp.Data {
         public async Task<IEnumerable<User>> GetAllUsers(){
             return await _dbcontext.Users.Include(data => data.Vehicles).ToListAsync();
         }
+        
+        public async Task<User> GetOneUser(int id){
+            return await _dbcontext.Users.FindAsync(id);
+        }
+        
+        public async Task<User> InsertUser(User user){
+            check.UserEntry(user);
+            await _dbcontext.Users.AddAsync(user);
+            await _dbcontext.SaveChangesAsync();
+            return user;
+        }
         /*
-        protected Context dbContext(){
-            return _dbcontext;
-        }
-
-        Task<User> IUserRepository.GetOneUser(){
-            throw new NotImplementedException();
-        }
-
-        Task<bool> IUserRepository.InsertUser(){
-            throw new NotImplementedException();
-        }
-
         Task<bool> IUserRepository.UpdateUser(){
             throw new NotImplementedException();
         }

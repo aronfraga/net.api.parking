@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using ParkingApp.Model;
 
 namespace ParkingApp.Util {
-    
     public class Checker {
-
         public void UserEntry(User user){
 
             if (user.Email == null || user.Email is not string)
@@ -28,7 +26,5 @@ namespace ParkingApp.Util {
                 throw new Exception("The last name cannot be empty and must be a string");
 
         }
-
     }
-
 }

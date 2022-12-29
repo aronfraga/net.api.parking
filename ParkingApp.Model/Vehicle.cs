@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace ParkingApp.Model {
     public class Vehicle {
-
         public Vehicle(){
             this.Users = new HashSet<User>();
         }
@@ -20,6 +19,5 @@ namespace ParkingApp.Model {
         public string Plate { get; set; }
         [JsonIgnore]
         public virtual ICollection<User> Users { get; set; }
-
     }
 }

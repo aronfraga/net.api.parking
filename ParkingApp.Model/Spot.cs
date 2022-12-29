@@ -7,9 +7,9 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace ParkingApp.Model {
+namespace ParkingApp.Model {  
     public class Spot {
-
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -17,6 +17,6 @@ namespace ParkingApp.Model {
         public bool Status { get; set; }
         [JsonIgnore]
         public virtual ICollection<Reservation> Reservations { get; set; }
-
+    
     }
 }

@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParkingApp.Model {
+namespace ParkingApp.Model {    
     public class Reservation {
-
         public Reservation(){
             this.Spots = new HashSet<Spot>();
             this.Users = new HashSet<User>();
@@ -22,6 +21,5 @@ namespace ParkingApp.Model {
         public DateTime DateTimeStart { get; set; }
         public DateTime DateTimeEnd { get; set; }
         public bool IsPaid { get; set; }
-
     }
 }
