@@ -21,6 +21,8 @@ namespace ParkingApp.Model {
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        [JsonIgnore]
+        public bool Active { get; set; } = true;
         [JsonInclude]
         public virtual ICollection<Vehicle> Vehicles { get; set; }
         [JsonIgnore]

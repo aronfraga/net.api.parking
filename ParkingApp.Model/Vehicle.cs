@@ -15,6 +15,7 @@ namespace ParkingApp.Model {
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [JsonIgnore]
         public int Id { get; set; }
         public string Plate { get; set; }
         [JsonIgnore]

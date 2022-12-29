@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
+using ParkingApp.Data;
 using ParkingApp.Data.Repositories;
 using ParkingApp.Model;
 using ParkingApp.Util;
@@ -19,11 +21,20 @@ namespace ParkingApp.Data {
         }
 
         public async Task<IEnumerable<User>> GetAllUsers(){
-            return await _dbcontext.Users.Include(data => data.Vehicles).ToListAsync();
+            return await _dbcontext.Users
+                .Include(data => data.Vehicles)
+                .Where(data => data.Active == true)
+                .ToListAsync();
         }
         
         public async Task<User> GetOneUser(int id){
-            return await _dbcontext.Users.FindAsync(id);
+            var response =  await _dbcontext.Users
+                .AsNoTracking()
+                .Include(data => data.Vehicles)
+                .FirstOrDefaultAsync(data => data.Id == id);
+            
+            check.IsNull(response, "user");
+            return response;
         }
         
         public async Task<User> InsertUser(User user){
@@ -32,13 +43,28 @@ namespace ParkingApp.Data {
             await _dbcontext.SaveChangesAsync();
             return user;
         }
-        /*
-        Task<bool> IUserRepository.UpdateUser(){
-            throw new NotImplementedException();
+        
+        public async Task<User> UpdateUser(User user){
+            check.IsNull(user.Id, "id");
+            var UserToUpdate = await GetOneUser(user.Id);           
+            check.IsNull(UserToUpdate, "user");
+            check.UserEntry(user);          
+            
+            _dbcontext.Users.Update(user);
+            await _dbcontext.SaveChangesAsync();
+            return user;
         }
+        
+        public async Task<bool> DeleteUser(int id){
+            check.IsNull(id, "id");
+            var response = await _dbcontext.Users
+                .AsNoTracking()
+                .Include(data => data.Vehicles)
+                .FirstOrDefaultAsync(data => data.Id == id);
 
-        Task<bool> IUserRepository.DeleteUser(){
-            throw new NotImplementedException();
-        }*/
+            _dbcontext.Users.Update(response);
+            await _dbcontext.SaveChangesAsync();
+            return true;
+        }
     }
 }
