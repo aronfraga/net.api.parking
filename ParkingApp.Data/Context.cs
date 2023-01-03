@@ -22,9 +22,6 @@ namespace ParkingApp.Data {
                 .HasMany<Vehicle>(data => data.Vehicles)
                 .WithMany(data => data.Users);
             modelBuilder.Entity<Reservation>()
-                .HasMany<Spot>(data => data.Spots)
-                .WithMany(data => data.Reservations);
-            modelBuilder.Entity<Reservation>()
                 .HasMany<User>(data => data.Users)
                 .WithMany(data => data.Reservations);
             base.OnModelCreating(modelBuilder);

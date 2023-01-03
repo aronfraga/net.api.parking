@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 namespace ParkingApp.Model {    
     public class Reservation {
         public Reservation(){
-            this.Spots = new HashSet<Spot>();
             this.Users = new HashSet<User>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public virtual ICollection<Spot> Spots { get; set; }
+        public int Spots { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public DateTime DateTimeStart { get; set; }
         public DateTime DateTimeEnd { get; set; }

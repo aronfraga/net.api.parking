@@ -25,7 +25,6 @@ namespace ParkingApp.Data {
                 .Include(data => data.Vehicles)
                 .Where(data => data.Active == true)
                 .ToListAsync();
-     
         }
         
         public async Task<User> GetOneUser(int id){
@@ -40,6 +39,8 @@ namespace ParkingApp.Data {
         
         public async Task<User> InsertUser(User user){
             check.UserEntry(user);
+            var response = await _dbcontext.Users.Where(data => data.Email == user.Email).FirstOrDefaultAsync();
+            check.IsRegistered(response, "user");
             await _dbcontext.Users.AddAsync(user);
             await _dbcontext.SaveChangesAsync();
             return user;

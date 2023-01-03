@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ParkingApp.Model;
 
 namespace ParkingApp.Data.Repositories {
-    
     public interface IUserRepository {
 
         Task<IEnumerable<User>> GetAllUsers();
@@ -16,5 +15,4 @@ namespace ParkingApp.Data.Repositories {
         Task<bool> DeleteUser(int id);
 
     }
-
 }

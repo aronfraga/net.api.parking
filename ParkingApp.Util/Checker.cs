@@ -36,5 +36,10 @@ namespace ParkingApp.Util {
             if (id == null) throw new Exception($"The {isOne} cannot be null or empty");
         }
 
+        public void IsRegistered(User user, string isOne){
+            if (user != null) throw new Exception($"The {isOne} is already registered");
+        }
+
+
     }
 }
