@@ -6,11 +6,20 @@
 
 🌎 Deploy -  
 
- - Working on
+ - I will have it deployed soon. 🙂
+
+ ⚒️ Installation - for run in local
+
+ - You need to have SQL Server 2019
+ - Create a database with next name "parkingapi"
+ - Go to "appsettings.json" and update the connection string 👇
+    "Server=.\\SQLExpress;Database=parkingapi;TrustServerCertificate=True;Trusted_Connection=True;"
+        remember that "\\SQLExpress" is the instance if you instance has a other name you need to change it.
 
 ▶️ Usage 
 
- - dotnet run - for run in local
+ - Open Visual Studio and Start it.
+ - or in your terminal run ---> dotnet run 
 
 📍 Endpoints
 ````
@@ -33,7 +42,7 @@ Account { GET, POST, PUT, DELETE }
 ````
 ````
 Spot { GET, POST, PUT }
-    - post - /api/spot - create the garage size, if you have a garage with 20 spot to park pit 20.
+    - post - /api/spot - create the garage size, if you have a garage with 20 spot to park put 20.
     - get - /api/spot - get all spot status
     - put - /api/spot - update spot status on your garage, this should not be controlled on your own. 
                         The idea is that when a reservation is made it changes to not available or available when the place is released.
