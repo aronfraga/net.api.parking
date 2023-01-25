@@ -12,5 +12,6 @@ namespace ParkingApi.Models.DTO.VehicleDTO {
 
 		[Required(ErrorMessage = Messages.USER_NO_EMAIL)]
 		public int UserId { get; set; }
+
 	}
 }

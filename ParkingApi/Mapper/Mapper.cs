@@ -11,6 +11,8 @@ namespace ParkingApi.Mapper {
 
 			CreateMap<Vehicle, VehicleCreateDTO>().ReverseMap();
 			CreateMap<Vehicle, VehicleUpdateDTO>().ReverseMap();
+			CreateMap<Vehicle, VehicleReturnDTO>().ReverseMap();
+
 		}
 
 	}

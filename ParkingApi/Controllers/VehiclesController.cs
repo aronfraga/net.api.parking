@@ -31,7 +31,7 @@ namespace ParkingApi.Controllers {
 		[HttpGet("{id}")]
 		public async Task<IActionResult> GetOneVehicule(int id) {
 			try {
-				var response = await _unitOfWork.Vehicle.GetOneVehicle(id);
+				var response = _mapper.Map<VehicleReturnDTO>(await _unitOfWork.Vehicle.GetOneVehicle(id));
 				return StatusCode(200, new { request_status = "successful", response = response });
 			} catch (Exception ex) {
 				return StatusCode(400, new { request_status = "unsuccessful", response = ex.Message });

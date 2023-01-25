@@ -15,20 +15,16 @@ namespace ParkingApi.Data {
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder) {
 
-			modelBuilder.Entity<User>().HasMany<Vehicle>(data => data.Vehicle)
-									   .WithOne(data => data.User)
-									   .HasForeignKey(data => data.UserId);
-
 			modelBuilder.Entity<Vehicle>().HasOne<User>(data => data.User)
-										  .WithMany(data => data.Vehicle);
+										  .WithMany(data => data.Vehicle)
+										  .HasForeignKey(data => data.UserId);
 
 			modelBuilder.Entity<Reservation>().HasOne<User>(data => data.User)
 											  .WithMany(data => data.Reservation)
-								              .HasForeignKey(data => data.UserId);
+											  .HasForeignKey(data => data.UserId);
 
 			modelBuilder.Entity<Reservation>().HasOne<Spot>(data => data.Spot)
-											  .WithOne(data => data.Reservation)
-											  .HasForeignKey<Reservation>(data => data.SpotId);
+											  .WithOne(data => data.Reservation);
 
 		}
 

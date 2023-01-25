@@ -12,8 +12,8 @@ using ParkingApi.Data;
 namespace ParkingApi.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230125174545_db")]
-    partial class db
+    [Migration("20230125182050_Db")]
+    partial class Db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
