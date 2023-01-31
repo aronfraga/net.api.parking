@@ -10,10 +10,12 @@ namespace ParkingApi.Repository {
 			_dbcontext = dbcontext;
 			User = new UserRepository(dbcontext, config);
 			Vehicle = new VehicleRepository(dbcontext);
+			Spot = new SpotRepository(dbcontext);
 		}
 
 		public IUserRepository User { get; private set; }
 		public IVehicleRepository Vehicle { get; private set; }
+		public ISpotRepository Spot { get; private set; }
 
 	}
 }

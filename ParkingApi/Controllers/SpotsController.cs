@@ -15,15 +15,15 @@ namespace ParkingApi.Controllers {
 			_unitOfWork = unitOfWork;
 		}
 
-		//[HttpPost]
-		//public async Task<IActionResult> RegisterUser([FromBody] Spot spot) {
-		//	try {
-		//		var response = "asdads";
-		//		return StatusCode(201, new { request_status = "successful", response = response });
-		//	} catch (Exception ex) {
-		//		return StatusCode(400, new { request_status = "unsuccessful", response = ex.Message });
-		//	}
-		//}
+		[HttpPost]
+		public async Task<IActionResult> RegisterUser() {
+			try {
+				var response = _unitOfWork.Spot.SetSize(5);
+				return StatusCode(201, new { request_status = "successful", response = response });
+			} catch (Exception ex) {
+				return StatusCode(400, new { request_status = "unsuccessful", response = ex.Message });
+			}
+		}
 
 	}
 }

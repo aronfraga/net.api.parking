@@ -4,7 +4,7 @@
         public int Id { get; set; }
         public bool Status { get; set; } = true;
 
-		public Reservation Reservation { get; set; } = new Reservation();
+		public Reservation? Reservation { get; set; }
 
 	}
 }

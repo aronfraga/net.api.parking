@@ -21,7 +21,7 @@ namespace ParkingApi.Controllers {
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> RegisterUser([FromBody] UserCreateDTO userCreateDTO) {
+		public async Task<IActionResult> RegisterUser([FromBody] User userCreateDTO) {
 			try {
 				var response = _unitOfWork.User.RegisterUser(_mapper.Map<User>(userCreateDTO));
 				return StatusCode(201, new { request_status = "successful", response = response.Result });

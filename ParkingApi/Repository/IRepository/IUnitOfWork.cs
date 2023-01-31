@@ -3,6 +3,7 @@
 
 		IUserRepository User { get; }
 		IVehicleRepository Vehicle { get; }
+		ISpotRepository Spot { get; }
 
 	}
 }
